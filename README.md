@@ -1,2 +1,1 @@
-Website Link
-https://vicki-wu.github.io/vicki-portfolio/
+Website Link: https://vicki-wu.github.io/vicki-portfolio/
