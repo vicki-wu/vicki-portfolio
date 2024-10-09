@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Cosmic Explorer</title>
+    <style>
+      body {
+        background-color: #000033;
+        font: 3vw sans-serif;
+        margin: 0;
+        overflow: hidden;
+      }
+      .x {
+        text-align: center;
+        position: absolute;
+        top: 10%;
+        left: 11vw;
+        width: 80%;
+      }
+      #a {
+        font-size: 4vw;
+        color: #00ffff;
+        padding: 1vw;
+        animation: pulse 3s infinite ease-in-out;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.2);
+          opacity: 0.7;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .m {
+        display: table-cell;
+        vertical-align: middle;
+        width: 25vw;
+        height: 15vh;
+        top: 2vh;
+        background-color: #1a1a4a;
+        color: #ffffff;
+        padding: 2vh;
+        border: 1vh double #4169e1;
+        box-shadow: 0 0 20px 10px rgba(0, 255, 255, 0.6);
+        transition: box-shadow 0.5s ease;
+      }
+      .m:hover {
+        box-shadow: 0 0 30px 20px rgba(0, 255, 255, 1);
+      }
+      #e {
+        padding: 1vh;
+        color: #00ffff;
+        font-size: 3vw;
+      }
+      #g {
+        display: none;
+        font: 4vh;
+        color: #00ff00;
+      }
+      button {
+        font-size: 40px;
+        background-color: #4169e1;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      button:hover {
+        background-color: #00ffff;
+      }
+      .star {
+        position: absolute;
+        background-color: #fff;
+        width: 2px;
+        height: 2px;
+        border-radius: 50%;
+        animation: twinkle 3s infinite;
+      }
+      @keyframes twinkle {
+        0% {
+          opacity: 0.5;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0.5;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="x">
+      <div id="a">COSMIC EXPLORER</div>
+      <div style="margin: 3vw">
+        <div id="b" class="m">-</div>
+        <div id="c" class="m">-</div>
+        <div id="d" class="m">-</div>
+      </div>
+      <div id="e">Worlds Discovered: 0</div>
+      <pre><span id="g"></span></pre>
+      <div><button onclick="explore()">EXPLORE</button></div>
+    </div>
+    <script>
+      let worldCount = 0;
+
+      function explore() {
+        document.getElementById("g").style.display = "none";
+        worldCount += 1;
+
+        const planets = [
+          "Rocky",
+          "Gas Giant",
+          "Ice",
+          "Ocean",
+          "Desert",
+          "Lava",
+        ];
+        const atmospheres = [
+          "Oxygen-rich",
+          "Methane",
+          "Hydrogen",
+          "Carbon Dioxide",
+          "Nitrogen",
+          "Helium",
+        ];
+        const lifeforms = [
+          "Microbial",
+          "Plant-like",
+          "Aquatic",
+          "Insectoid",
+          "Reptilian",
+          "Energy Beings",
+        ];
+
+        const elements = [
+          document.getElementById("b"),
+          document.getElementById("c"),
+          document.getElementById("d"),
+        ];
+        const types = [planets, atmospheres, lifeforms];
+
+        elements.forEach((element, index) => {
+          let interval = setInterval(() => {
+            element.textContent =
+              types[index][Math.floor(Math.random() * types[index].length)];
+          }, 100);
+
+          setTimeout(() => {
+            clearInterval(interval);
+            if (index === 0 && element.textContent === "Ocean") {
+              document.getElementById("g").style.display = "block";
+              document.getElementById("g").textContent = "ATLANTIS FOUND!";
+              worldCount = 0;
+              document.getElementById("e").textContent =
+                "Worlds Discovered: " + worldCount;
+            }
+          }, 2000 + Math.random() * 2000);
+        });
+
+        document.getElementById("e").textContent =
+          "Worlds Discovered: " + worldCount;
+      }
+
+      function createStars() {
+        const starCount = 100;
+        for (let i = 0; i < starCount; i++) {
+          const star = document.createElement("div");
+          star.className = "star";
+          star.style.left = `${Math.random() * 100}%`;
+          star.style.top = `${Math.random() * 100}%`;
+          star.style.animationDuration = `${Math.random() * 3 + 1}s`;
+          document.body.appendChild(star);
+        }
+      }
+
+      createStars();
+    </script>
+  </body>
+</html>
